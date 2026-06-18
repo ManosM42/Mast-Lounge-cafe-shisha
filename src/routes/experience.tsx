@@ -2,8 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
 import slider1 from "@/assets/slider-1.jpg";
-import slider3 from "@/assets/slider-3.jpg";
+import slider3 from "@/assets/slider-10.jpg";
 import slider4 from "@/assets/slider-4.jpg";
+import slider5 from "@/assets/slider-7.jpg";
 
 export const Route = createFileRoute("/experience")({
   head: () => ({
@@ -21,7 +22,7 @@ function ExperiencePage() {
     { t: t.experience.s1t, b: t.experience.s1b, img: slider4 },
     { t: t.experience.s2t, b: t.experience.s2b, img: slider1 },
     { t: t.experience.s3t, b: t.experience.s3b, img: slider3 },
-    { t: t.experience.s4t, b: t.experience.s4b, img: null },
+    { t: t.experience.s4t, b: t.experience.s4b, img: slider5 },
   ];
 
   return (
