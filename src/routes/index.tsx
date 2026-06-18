@@ -16,6 +16,8 @@ import image9 from "@/assets/slider-9.jpg";
 import image10 from "@/assets/slider-10.jpg";
 import image11 from "@/assets/slider-11.jpg";
 import image12 from "@/assets/slider-12.jpg";
+import image13 from "@/assets/slider-13.jpg";
+import image14 from "@/assets/slider-14.jpg";
 
 
 export const Route = createFileRoute("/")({
@@ -51,6 +53,8 @@ const GALLERY = [
   image10,
   image11,
   image12,
+  image13,
+  image14,
 ];
 
 function Home() {

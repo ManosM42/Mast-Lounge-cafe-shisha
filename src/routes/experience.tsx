@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
 import slider1 from "@/assets/slider-1.jpg";
-import slider3 from "@/assets/slider-10.jpg";
+import slider3 from "@/assets/slider-13.jpg";
 import slider4 from "@/assets/slider-4.jpg";
 import slider5 from "@/assets/slider-7.jpg";
 
