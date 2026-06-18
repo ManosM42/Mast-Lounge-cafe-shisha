@@ -110,18 +110,6 @@ function HeroSlider() {
         </motion.p>
       </div>
 
-      <button
-        onClick={() => setI(p => (p - 1 + HERO_IMAGES.length) % HERO_IMAGES.length)}
-        className="absolute left-4 top-1/2 z-30 -translate-y-1/2 rounded-full border border-[var(--gold)]/40 p-2 gold-text backdrop-blur-sm transition-all hover:bg-[var(--gold)]/20 sm:left-8"
-      >
-        <ChevronLeft size={24} />
-      </button>
-      <button
-        onClick={() => setI(p => (p + 1) % HERO_IMAGES.length)}
-        className="absolute right-4 top-1/2 z-30 -translate-y-1/2 rounded-full border border-[var(--gold)]/40 p-2 gold-text backdrop-blur-sm transition-all hover:bg-[var(--gold)]/20 sm:right-8"
-      >
-        <ChevronRight size={24} />
-      </button>
 
       <div className="absolute bottom-10 left-1/2 z-30 flex -translate-x-1/2 gap-3">
         {HERO_IMAGES.map((_, idx) => (
