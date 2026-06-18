@@ -43,7 +43,7 @@ function ShishaPage() {
         <div className="mx-auto max-w-md rounded-3xl border border-[var(--gold)]/40 bg-black/60 p-10 gold-glow">
           <ul className="space-y-5">
             {[
-              { l: t.shisha.base, v: "11€" },
+              { l: t.shisha.base, v: "12€" },
               { l: t.shisha.ice, v: "+1€" },
               { l: t.shisha.fruits, v: "+2€" },
               { l: t.shisha.premium, v: "20€" },
