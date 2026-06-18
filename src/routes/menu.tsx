@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/lib/i18n";
+import { motion } from "framer-motion";
+import slider4 from "@/assets/slider-4.jpg";
+
 
 export const Route = createFileRoute("/menu")({
   head: () => ({
@@ -42,6 +45,7 @@ const SECTIONS: Section[] = [
       { name: "Τσάι Ροδάκινο / Λεμόνι", price: "2,00€" },
       { name: "Energy Drink", price: "2,00€" },
       { name: "Amita", price: "2,00€" },
+      { name: "Fresh Juice", price: "3,50€" },
     ],
   },
   {
@@ -146,7 +150,42 @@ const SECTIONS: Section[] = [
       { name: "Blue Lagoon", price: "7,00€", desc: "Blue Curacao syrup, lemon juice, Sprite" },
     ],
   },
+ {
+    id: "snacks", emoji: "", titleKey: "snacks",
+    items: [
+      { name: "Toast", price: "2,00€", desc: "" },
+      { name: "Pizza", price: "12,00€", desc: "" },
+    ],
+  },
+  {
+    id: "breakfast", emoji: "", titleKey: "breakfast",
+    items: [
+      { name: "Κρουασάν", price: "2,50€", desc: "" },
+      { name: "Fan's Bite", price: "2,50€", desc: "" },
+      { name: "Amaretti", price: "2,50€", desc: "" },
+      { name: "Αραβική Πίτα", price: "2,80€", desc: "Κοτόπουλο, Ζαμπόν" },
+      { name: "Cheeseburger", price: "2,80€", desc: "" },
+      { name: "Special", price: "2,80€", desc: "" },
+      { name: "Ζαμπόν Τυρί", price: "2,80€", desc: "" },
+      { name: "Γαλοπούλα Τυρί", price: "2,80€", desc: "" },
+      { name: "Τυρόπιτα", price: "2,00€", desc: "" },
+      { name: "Πεϊνιρλί", price: "2,50€", desc: "" },
+      { name: "Pizza", price: "2,50€", desc: "" },
+    ],
+  },
+  {
+    id: "juices", emoji: "", titleKey: "juices",
+    items: [
+      { name: "Βύσσινο", price: "3,50€", desc: "" },
+      { name: "Ρόδι", price: "3,50€", desc: "" },
+      { name: "Λεμόνι", price: "3,50€", desc: "" },
+      { name: "Λεμόνι Ginger", price: "3,50€", desc: "" },
+      { name: "Λεμόνι Ιβίσκος", price: "3,50€", desc: "" },
+      { name: "Pink", price: "3,50€", desc: "" },
+    ],
+  },
 ];
+
 
 function MenuPage() {
   const { t } = useLanguage();
@@ -172,13 +211,51 @@ function MenuPage() {
   };
 
   return (
-    <div className="bg-background pt-32">
-      <div className="px-6 text-center">
-        <h1 className="font-display text-5xl gold-gradient-text sm:text-7xl">{t.menu.title}</h1>
-        <div className="mx-auto mt-4 h-px w-40 bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent" />
+    <div className="bg-background">
+
+      {/* Hero with slider-4.jpg background */}
+      <div className="relative overflow-hidden pt-32 pb-20 text-center">
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: `url(${slider4})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            zIndex: 0,
+          }}
+        />
+        <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.65)", zIndex: 1 }} />
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 40%, rgba(201,168,76,0.12), transparent 65%)", zIndex: 2 }} />
+
+        <div style={{ position: "relative", zIndex: 3 }}>
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9 }}
+            className="font-display text-5xl gold-gradient-text sm:text-7xl"
+          >
+            {t.menu.title}
+          </motion.h1>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="mx-auto mt-4 h-px w-40 bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent"
+          />
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="mt-4 text-sm tracking-[0.3em] text-[var(--muted-foreground)]"
+          >
+            {t.menu.subtitle ?? "MAST LOUNGE CAFE & SHISHA"}
+          </motion.p>
+        </div>
       </div>
 
-      <div className="sticky top-[72px] z-40 mt-12 border-y border-[var(--gold)]/30 bg-background/95 backdrop-blur-md">
+      {/* Sticky tab bar */}
+      <div className="sticky top-[72px] z-40 border-y border-[var(--gold)]/30 bg-background/95 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 py-4 scrollbar-none">
           {SECTIONS.map(s => (
             <button
@@ -196,6 +273,7 @@ function MenuPage() {
         </div>
       </div>
 
+      {/* Menu sections */}
       <div className="mx-auto max-w-4xl space-y-12 px-6 py-16">
         {SECTIONS.map(s => (
           <section key={s.id} id={s.id} className="scroll-mt-48 rounded-2xl border border-[var(--gold)]/25 bg-black/40 p-6 sm:p-10">

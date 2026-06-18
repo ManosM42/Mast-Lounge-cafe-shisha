@@ -19,7 +19,7 @@ export const translations = {
     menu: {
       title: "Ο Κατάλογός Μας",
       cats: {
-        rofimata: "Ροφήματα", anapsiktika: "Αναψυκτικά", nero: "Νερό", bires: "Μπύρες",
+        rofimata: "Ροφήματα", anapsiktika: "Αναψυκτικά", nero: "Νερό", bires: "Μπύρες", snacks: "Σνακς", breakfast: "Πρωινό", juices: "Λεμονόδασσος Φρέσκοι Χυμοί",
         premium: "Premium Spirits", wine: "Wine", cocktails: "Cocktails", mocktails: "Mocktails",
       },
     },
@@ -71,7 +71,7 @@ export const translations = {
     menu: {
       title: "Our Menu",
       cats: {
-        rofimata: "Hot Drinks", anapsiktika: "Soft Drinks", nero: "Water", bires: "Beers",
+        rofimata: "Hot Drinks", anapsiktika: "Soft Drinks", nero: "Water", bires: "Beers", snacks: "Snacks", breakfast: "Breakfast", juices: "Lemonodassos Fresh Juices",
         premium: "Premium Spirits", wine: "Wine", cocktails: "Cocktails", mocktails: "Mocktails",
       },
     },

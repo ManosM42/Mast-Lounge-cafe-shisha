@@ -32,7 +32,7 @@ export function LoadingScreen({ show }: { show: boolean }) {
   );
 }
 
-export function useInitialLoader(ms = 3000) {
+export function useInitialLoader(ms = 2500) {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), ms);

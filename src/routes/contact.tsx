@@ -46,7 +46,7 @@ function ContactPage() {
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row">
-            <a href="hhttps://www.instagram.com/mast_lounge_cafe/" target="_blank" rel="noreferrer" className="group flex flex-1 items-center justify-center gap-3 overflow-hidden rounded-full border border-[var(--gold)] px-6 py-3 gold-text transition-colors hover:text-background relative">
+            <a href="https://www.instagram.com/mast_lounge_cafe/" target="_blank" rel="noreferrer" className="group flex flex-1 items-center justify-center gap-3 overflow-hidden rounded-full border border-[var(--gold)] px-6 py-3 gold-text transition-colors hover:text-background relative">
               <span className="absolute inset-0 -translate-x-full bg-[var(--gold)] transition-transform duration-500 group-hover:translate-x-0" />
               <Instagram size={18} className="relative" />
               <span className="relative text-sm tracking-widest">@mastlounge</span>

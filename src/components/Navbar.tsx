@@ -40,7 +40,7 @@ export function Navbar() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
           <Link to="/" className="flex items-center gap-3">
             <div className="rounded-full  p-1.5">
-              <img src={logo} alt="Mast" className="h-18 w-24 object-contain" />
+              <img src={logo} alt="Mast" className="h-10 w-15 object-contain" />
             </div>
             <span className="font-display text-2xl tracking-widest gold-text">cafe & shisha</span>
           </Link>
