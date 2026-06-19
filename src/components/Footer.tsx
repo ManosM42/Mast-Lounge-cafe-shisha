@@ -31,7 +31,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-[var(--gold)]/15 px-6 py-5 text-center text-xs tracking-wider text-[var(--muted-foreground)]">
-        © 2024 Mast Lounge Cafe &amp; Shisha — {t.footer.rights}
+        © 2026 Mast Lounge Cafe &amp; Shisha — {t.footer.rights}
       </div>
     </footer>
   );
