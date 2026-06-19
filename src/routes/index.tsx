@@ -3,7 +3,7 @@ import { motion, useInView } from "framer-motion";
 import { ChevronLeft, ChevronRight, X, Star, Coffee, Wine, Flame } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/lib/i18n";
-import {  Maximize2 } from "lucide-react";
+import { Maximize2 } from "lucide-react";
 import image from "@/assets/slider-1.jpg";
 import image2 from "@/assets/slider-2.jpg";
 import image3 from "@/assets/slider-3.jpg";
@@ -19,7 +19,6 @@ import image12 from "@/assets/slider-12.jpg";
 import image13 from "@/assets/slider-13.jpg";
 import image14 from "@/assets/slider-14.jpg";
 import image15 from "@/assets/slider-15.jpg";
-
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -42,22 +41,41 @@ const REVIEWS = [
 ];
 
 const GALLERY = [
-  image,
-  image2,
-  image3,
-  image4,
-  image5,
-  image6,
-  image7,
-  image8,
-  image9,
-  image10,
-  image11,
-  image12,
-  image13,
-  image14,
-  image15,
+  image, image2, image3, image4, image5, image6, image7,
+  image8, image9, image10, image11, image12, image13, image14, image15,
 ];
+
+// Hook που ανιχνεύει αν είναι mobile
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  return isMobile;
+}
+
+// Reusable ParallaxBg component που δουλεύει και σε mobile
+function ParallaxBg({ src, overlay = "bg-black/50" }: { src: string; overlay?: string }) {
+  const isMobile = useIsMobile();
+  return (
+    <>
+      <div
+        className="absolute inset-0 -z-10"
+        style={{
+          backgroundImage: `url(${src})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: isMobile ? "scroll" : "fixed",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+      <div className={`absolute inset-0 -z-10 ${overlay}`} />
+    </>
+  );
+}
 
 function Home() {
   return (
@@ -98,7 +116,6 @@ function HeroSlider() {
         </div>
       ))}
 
-      {/* Dark vignette overlay */}
       <div className="absolute inset-0 z-10 bg-gradient-to-t from-background via-black/40 to-background/30" />
 
       <div className="relative z-20 flex h-full flex-col items-center justify-center px-6 text-center">
@@ -128,7 +145,6 @@ function HeroSlider() {
         </motion.p>
       </div>
 
-
       <div className="absolute bottom-10 left-1/2 z-30 flex -translate-x-1/2 gap-3">
         {HERO_IMAGES.map((_, idx) => (
           <button
@@ -147,25 +163,17 @@ function ServedWithLove() {
   const { t } = useLanguage();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.4 });
+
   return (
     <section ref={ref} className="section-pad text-center relative overflow-hidden">
-      {/* Background slider-4.jpg */}
-      <div
-        className="absolute inset-0 -z-10"
-        style={{
-          backgroundImage: `url(${image4})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-        }}
-      />
+      <ParallaxBg src={image4} overlay="bg-black/0" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/55 via-black/45 to-black/55" />
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 1 }}
-        className="mx-auto max-w-3xl"
+        className="mx-auto max-w-3xl relative z-10"
       >
         <div className="mx-auto h-px w-24 bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent" />
         <p className="mt-10 font-accent text-3xl italic leading-snug text-foreground sm:text-5xl">
@@ -372,18 +380,10 @@ function Highlights() {
     { icon: Wine, ...t.home.cocktails },
     { icon: Flame, ...t.home.shishaCard },
   ];
+
   return (
     <section className="section-pad relative overflow-hidden">
-      <div
-        className="absolute inset-0 -z-10"
-        style={{
-          backgroundImage: `url(${image})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-        }}
-      />
-      {/* Lighter overlay — πιο visible φωτογραφία */}
+      <ParallaxBg src={image} overlay="bg-black/0" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/50 via-black/40 to-black/55" />
 
       <motion.h2
@@ -391,12 +391,12 @@ function Highlights() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="mb-16 text-center font-display text-4xl gold-gradient-text sm:text-5xl"
+        className="mb-16 text-center font-display text-4xl gold-gradient-text sm:text-5xl relative z-10"
       >
         {t.home.highlights}
       </motion.h2>
 
-      <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3">
+      <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3 relative z-10">
         {cards.map((c, i) => {
           const Icon = c.icon;
           return (
@@ -423,7 +423,7 @@ function Highlights() {
         })}
       </div>
 
-      <div className="mt-14 text-center">
+      <div className="mt-14 text-center relative z-10">
         <Link to="/menu" className="group relative inline-block overflow-hidden rounded-full border border-[var(--gold)] px-10 py-4 text-sm tracking-[0.25em] gold-text transition-colors hover:text-background">
           <span className="absolute inset-0 -translate-x-full bg-[var(--gold)] transition-transform duration-500 group-hover:translate-x-0" />
           <span className="relative">{t.home.viewMenu}</span>
@@ -437,18 +437,10 @@ function ReviewsMarquee() {
   const { t } = useLanguage();
   const [paused, setPaused] = useState(false);
   const loop = [...REVIEWS, ...REVIEWS];
+
   return (
     <section className="section-pad relative overflow-hidden">
-      <div
-        className="absolute inset-0 -z-10"
-        style={{
-          backgroundImage: `url(${image2})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-        }}
-      />
-      {/* Lighter overlay */}
+      <ParallaxBg src={image2} overlay="bg-black/0" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/55 via-black/45 to-black/60" />
 
       <motion.h2
@@ -456,13 +448,13 @@ function ReviewsMarquee() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="mb-12 text-center font-display text-3xl gold-gradient-text sm:text-4xl"
+        className="mb-12 text-center font-display text-3xl gold-gradient-text sm:text-4xl relative z-10"
       >
         <Star size={20} className="mr-2 inline gold-text" fill="currentColor" />
         {t.home.reviewsTitle}
       </motion.h2>
 
-      <div className="overflow-hidden cursor-pointer" onClick={() => setPaused(p => !p)}>
+      <div className="overflow-hidden cursor-pointer relative z-10" onClick={() => setPaused(p => !p)}>
         <div className={`flex w-max gap-6 animate-marquee ${paused ? "paused" : ""}`}>
           {loop.map((r, i) => (
             <div key={i} className="w-[320px] shrink-0 rounded-xl border border-[var(--gold)]/40 bg-black/35 backdrop-blur-sm p-6 sm:w-[380px]">
@@ -477,12 +469,13 @@ function ReviewsMarquee() {
           ))}
         </div>
       </div>
-      <p className="mt-4 text-center text-xs text-[var(--muted-foreground)]">
+      <p className="mt-4 text-center text-xs text-[var(--muted-foreground)] relative z-10">
         {paused ? "▶ Tap to resume" : "⏸ Tap to pause"}
       </p>
     </section>
   );
 }
+
 function FindUs() {
   const { t } = useLanguage();
   return (

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Flame } from "lucide-react";
 import { useLanguage } from "@/lib/i18n";
 import slider15 from "@/assets/slider-15.jpg";
+import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/shisha")({
   head: () => ({
@@ -23,24 +24,42 @@ const FLAVOURS = [
   { name: "Blueberry", color: "#3a4a7a" },
 ];
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  return isMobile;
+}
+
 function ShishaPage() {
   const { t } = useLanguage();
+  const isMobile = useIsMobile();
+
   return (
-    <div
-      className="pt-24 relative"
-      style={{
-        backgroundImage: `url(${slider15})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-      }}
-    >
-      {/* Dark overlay over background for readability */}
-      <div className="absolute inset-0 bg-black/65 pointer-events-none" />
+    <div className="pt-24 relative min-h-screen">
+
+      {/* Full page background — fixed on desktop, scroll on mobile */}
+      <div
+        className="fixed inset-0 -z-20"
+        style={{
+          backgroundImage: `url(${slider15})`,
+          backgroundSize: isMobile ? "contain" : "80%",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: isMobile ? "scroll" : "fixed",
+          backgroundColor: "#0a0a0a",
+        }}
+      />
+      {/* Overlay — lighter so photo is more visible */}
+      <div className="fixed inset-0 -z-10 bg-black/50" />
 
       {/* Hero */}
-      <section className="relative flex h-[60vh] items-center justify-center overflow-hidden text-center">
-        <div className="absolute inset-0 opacity-30" style={{ backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4'><circle cx='1' cy='1' r='0.5' fill='%23c9a84c'/></svg>\")" }} />
+      <section className="relative flex h-[60vh] items-center justify-center text-center">
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4'><circle cx='1' cy='1' r='0.5' fill='%23c9a84c'/></svg>\")" }} />
         <div className="relative z-10 px-6">
           <Flame size={48} className="mx-auto mb-4 animate-shimmer gold-text" />
           <h1 className="font-display text-5xl gold-gradient-text sm:text-7xl">{t.shisha.title}</h1>
@@ -53,7 +72,7 @@ function ShishaPage() {
       {/* Pricing */}
       <section className="section-pad relative z-10">
         <h2 className="mb-10 text-center font-display text-3xl gold-gradient-text sm:text-4xl">{t.shisha.pricing}</h2>
-        <div className="mx-auto max-w-md rounded-3xl border border-[var(--gold)]/40 bg-black/70 p-10 gold-glow">
+        <div className="mx-auto max-w-md rounded-3xl border border-[var(--gold)]/40 bg-black/60 backdrop-blur-sm p-10 gold-glow">
           <ul className="space-y-5">
             {[
               { l: t.shisha.base, v: "12€" },
@@ -82,7 +101,7 @@ function ShishaPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="group rounded-2xl border border-[var(--gold)]/30 bg-black/60 p-7 transition-all hover:-translate-y-1 hover:gold-glow"
+              className="group rounded-2xl border border-[var(--gold)]/30 bg-black/50 backdrop-blur-sm p-7 transition-all hover:-translate-y-1 hover:gold-glow"
             >
               <div className="mb-5 flex items-center gap-3">
                 <span className="h-5 w-5 rounded-full ring-2 ring-[var(--gold)]/30" style={{ backgroundColor: f.color }} />
@@ -96,7 +115,7 @@ function ShishaPage() {
           ))}
         </div>
 
-        <div className="mt-16 text-center">
+        <div className="mt-16 mb-10 text-center">
           <Link to="/contact" className="group relative inline-block overflow-hidden rounded-full border border-[var(--gold)] px-10 py-4 text-sm tracking-[0.25em] gold-text transition-colors hover:text-background">
             <span className="absolute inset-0 -translate-x-full bg-[var(--gold)] transition-transform duration-500 group-hover:translate-x-0" />
             <span className="relative">{t.shisha.book}</span>
