@@ -79,7 +79,7 @@ function ShishaPage() {
               { l: t.shisha.ice, v: "+1€" },
               { l: t.shisha.fruits, v: "+2€" },
               { l: t.shisha.premium, v: "20€" },
-              { l: t.shisha.three, v: "2+1" },
+              { l: t.shisha.three, v: "3+1" },
             ].map(row => (
               <li key={row.l} className="flex items-center justify-between border-b border-[var(--gold)]/15 pb-4 last:border-0">
                 <span className="text-foreground/85">{row.l}</span>
