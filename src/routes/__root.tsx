@@ -77,6 +77,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       { rel: "icon", href: "/logo.png" },
       { rel: "canonical", href: "https://mastloungecafe.gr/" },
       { rel: "sitemap", type: "application/xml", href: "/sitemap.xml" },
