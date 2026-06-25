@@ -1,28 +1,19 @@
-# Στάδιο 1: Χτίσιμο της εφαρμογής (TanStack / Vite)
+# Στάδιο 1: Χτίσιμο της εφαρμογής (TanStack Start SSR)
 FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --no-audit --progress=false --force
+RUN npm ci --no-audit --progress=false
 COPY . .
 RUN npm run build
 
-# Στάδιο 2: Στήσιμο του Nginx με το σωστό Routing
-FROM nginx:alpine
+# Στάδιο 2: Runtime — τρέχει ο Node server του Nitro (όχι Nginx static)
+FROM node:20-alpine AS runner
+WORKDIR /app
 
-# Αν το TanStack Router βγάζει τα αρχεία στο dist
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/.output ./.output
 
-# Δημιουργία του σωστού Nginx Config για να μην ξαναδείς 404
-RUN echo 'server { \
-    listen 80; \
-    location / { \
-        root /usr/share/nginx/html; \
-        index index.html; \
-        try_files $uri $uri/ /index.html; \
-    } \
-    error_page 404 /404.html; \
-    error_page 500 502 503 504 /50x.html; \
-}' > /etc/nginx/conf.d/default.conf
+ENV NODE_ENV=production
+ENV PORT=3000
+EXPOSE 3000
 
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["node", ".output/server/index.mjs"]

@@ -23,8 +23,10 @@ import image15 from "@/assets/slider-15.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Mast Lounge Cafe & Shisha — Heraklion" },
-      { name: "description", content: "Premium cafe & shisha lounge in Heraklion, Crete. Cocktails, coffee, and curated shisha flavours." },
+      { title: "Mast Lounge Cafe & Shisha — Επισκοπή Ηρακλείου Κρήτης" },
+      { name: "description", content: "Mast Lounge Cafe & Shisha στην Επισκοπή Ηρακλείου Κρήτης. Premium καφέ, cocktails και ναργιλές σε έναν μοναδικό χώρο." },
+      { property: "og:title", content: "Mast Lounge Cafe & Shisha — Επισκοπή Ηρακλείου" },
+      { property: "og:description", content: "Premium cafe, cocktails και shisha lounge στην Επισκοπή Ηρακλείου Κρήτης." },
     ],
   }),
   component: Home,
