@@ -139,6 +139,8 @@ const SECTIONS: Section[] = [
       { name: "Paloma", price: "8,00€", desc: "Tequila, lime, grapefruit" },
       { name: "Forest Daiquiri", price: "8,00€", desc: "Rum, lime, passion fruit, sugar syrup" },
       { name: "Negroni", price: "8,00€", desc: "Gin, Campari, Martini" },
+      { name: "Blue Tropical Fizz ", price: "8,00€", desc: "Blue curacao , Lime, Passion fruit, sugar syrup, soda, vodka" },
+
     ],
   },
   {
